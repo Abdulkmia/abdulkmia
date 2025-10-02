@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Dr. Abdul Kaium Mia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --accent: #004aad;    /* Deep Blue */
+      --accent-light: #e6f0ff;
+      --muted: #555;
+      --card: #ffffff;
+      --bg: #f4f6fa;
+      --maxw: 1100px;
+    }
+    * {box-sizing: border-box;margin:0;padding:0}
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color:#111;
+      line-height:1.6;
+    }
+    .wrap {max-width:var(--maxw);margin:auto;padding:0 20px}
+    header {
+      display:flex;align-items:center;justify-content:space-between;
+      flex-wrap:wrap;padding:14px 0;
+    }
+    header .profile {display:flex;align-items:center;gap:12px}
+    header img {width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid var(--accent)}
+    nav a {
+      margin-left:16px;text-decoration:none;color:var(--accent);
+      font-weight:600;transition:color 0.2s;
+    }
+    nav a:hover {color:#000}
+    h1 {margin:0;font-size:28px;color:#000}
+    h2 {margin:0 0 10px;color:var(--accent)}
+    .card {
+      background:var(--card);
+      padding:20px;
+      border-radius:12px;
+      margin:18px 0;
+      box-shadow:0 4px 12px rgba(0,0,0,0.05);
+    }
+    footer {
+      text-align:center;color:var(--muted);
+      font-size:14px;padding:20px 0;margin-top:20px;
+    }
+    section {display:none}
+    section.active {display:block}
+
+    /* Hero section */
+    .hero {
+      background: linear-gradient(135deg,var(--accent),#0078d7);
+      color:white;padding:60px 20px;border-radius:12px;
+      display:flex;flex-wrap:wrap;align-items:center;gap:20px;margin:20px 0;
+    }
+    .hero img {width:160px;height:160px;border-radius:50%;object-fit:cover;border:3px solid #fff}
+    .hero h1 {color:#fff;font-size:32px}
+    .hero p {max-width:600px}
+
+    /* Home gallery */
+    .gallery {
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:16px;margin-top:16px;
+    }
+    .gallery a {display:block; text-decoration: none;}
+    .gallery img {
+      width:100%;height:auto;object-fit:cover;border-radius:10px;
+      box-shadow:0 3px 10px rgba(0,0,0,0.15);
+      transition:transform 0.3s;
+    }
+    .gallery img:hover {transform:scale(1.05)}
+    .gallery p {
+      text-align:center;margin-top:6px;color:#004aad;font-size:14px;
+      padding: 0 5px;
+    }
+
+    /* Publications - Automatic Numbering */
+    #publications {
+      counter-reset: publication-number;
+    }
+
+    .year-group {
+      margin-bottom: 30px;
+    }
+    .year-header {
+      background: linear-gradient(135deg, var(--accent), #0078d7);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      margin: 25px 0 15px 0;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .pub-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+    .pub-item:last-child {
+      border-bottom: none;
+    }
+    .pub-serial {
+      font-weight: bold;
+      color: #004aad;
+      min-width: 30px;
+      font-size: 16px;
+    }
+    .pub-serial::before {
+      counter-increment: publication-number;
+      content: counter(publication-number) ".";
+    }
+    .pub-item img {
+      width: 150px; /* Increased by 50% from original */
+      height: auto;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+    }
+    .pub-text {
+      flex: 1;
+    }
+    .pub-text a {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 8px;
+      line-height: 1.4;
+      font-size: 16px;
+    }
+    .pub-text a:hover {
+      text-decoration: underline;
+    }
+    .pub-meta {
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .pub-authors {
+      font-style: italic;
+      margin-bottom: 6px;
+    }
+    .pub-journal-year {
+      text-align: center;
+      font-weight: 500;
+      color: #004aad;
+      font-size: 15px;
+    }
+    
+    /* Highlight author name */
+    .author-highlight {
+      color: #004aad;
+      font-weight: bold;
+    }
+    
+    /* Education timeline */
+    .timeline {position:relative;max-width:800px;margin:20px auto}
+    .timeline::after {content:'';position:absolute;width:6px;background-color:var(--accent-light);top:0;bottom:0;left:50%;margin-left:-3px}
+    .timeline-item {padding:10px 40px;position:relative;width:50%;box-sizing:border-box}
+    .timeline-item:nth-child(odd) {left:0}
+    .timeline-item:nth-child(even) {left:50%}
+    .timeline-item::after {content:'';position:absolute;width:20px;height:20px;background-color:var(--accent);border:4px solid var(--accent-light);top:15px;border-radius:50%;z-index:1}
+    .timeline-item:nth-child(odd)::after {right:-10px}
+    .timeline-item:nth-child(even)::after {left:-10px}
+    .timeline-content {padding:20px;background-color:var(--card);border-radius:6px;box-shadow:0 2px 5px rgba(0,0,0,0.1)}
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {flex-direction: column; align-items: flex-start;}
+      nav {margin-top: 15px;}
+      nav a {display: inline-block; margin: 0 10px 5px 0;}
+      .hero {flex-direction: column; text-align: center;}
+      .timeline::after {left: 31px;}
+      .timeline-item {width: 100%; padding-left: 70px; padding-right: 25px;}
+      .timeline-item:nth-child(even) {left: 0;}
+      .timeline-item::after {left: 21px;}
+      .pub-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .pub-serial {
+        margin-bottom: 5px;
+      }
+      .pub-item img {
+        width: 130px; /* Slightly smaller on mobile but still larger than original */
+        align-self: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="profile">
+        <img src="abdul.jpg" alt="Dr. Abdul Kaium Mia">
+        <div>
+          <h1>Dr. Abdul Kaium Mia</h1>
+          <div style="color:var(--muted)">Researcher | 2D Materials | IIT Guwahati</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#home" onclick="showSection('home')">Home</a>
+        <a href="#research" onclick="showSection('research')">Research</a>
+        <a href="#education" onclick="showSection('education')">Education</a>
+        <a href="#publications" onclick="showSection('publications')">Publications</a>
+        <a href="#contact" onclick="showSection('contact')">Contact</a>
+      </nav>
+    </header>
+
+    <!-- HOME -->
+    <section id="home" class="active">
+      <div class="hero">
+        <img src="abdul.jpg" alt="Dr. Abdul Kaium Mia">
+        <div>
+          <h1>Welcome!</h1>
+          <p>I am a dedicated researcher with a focus on 2D materials for optoelectronics devices. My PhD thesis presents a comprehensive investigation into the layer-controlled growth of WS2, MoS2, and WS2-MoS2 in-situ lateral heterostructures with an alloy interface using chemical vapor deposition (CVD) techniques, alongside their applications in broadband photodetection, high-performance field-effect transistors (FETs), flexible electronics, and biosensing. The work addresses critical challenges of 2D TMDs in optoelectronics by optimizing growth parameters and exploring a deep understanding of the carrier dynamics and charge transport.
+Overall, the thesis advances the understanding of 2D material growth and their integration into high-performance optoelectronic devices.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Research Highlights</h2>
+        <p><b>Click any image below to view the corresponding manuscript<b>:</p>
+        <div class="gallery">
+          <a href="Under Review" target="_blank">
+            <img src="MoS2 monolayer flexible.jpg" alt="WS₂-MoS₂ Manuscript">
+            <p>The molayer MoS₂ based flexible Photodetector(Under Review, 2025)</p>
+          </a>
+
+          <a href="https://doi.org/10.1016/j.mtnano.2025.100638" target="_blank">
+            <img src="Electrical Characterization LHS.jpg" alt="WS₂-MoS₂ Manuscript">
+            <p>WS₂–MoS₂ Lateral Heterostructure (Materials Today Nano, 2025)</p>
+          </a>
+          
+          <a href="https://doi.org/10.1039/D3TB01465G" target="_blank">
+            <img src="Fast detection.jpg" alt="Fast detection of S. Aureus">
+            <p>Fast detection of S. Aureus (Journal of Materials Chemistry B, 2024)</p>
+          </a>
+
+          <a href="https://doi.org/10.1039/D3NR06118C" target="_blank">
+            <img src="Asymmetric Contact.jpg" alt="Bilayer WS2">
+            <p>Asymmetric contact-based bilayer WS₂ Photodetector (Nanoscale, 2024)</p>
+          </a>
+          
+           <a href="https://doi.org/10.1016/j.snr.2024.100214" target="_blank">
+            <img src="Sensitive detection.jpg" alt="Bilayer WS2">
+            <p> S. Aureus detection using Aptamer functionalized monolayer WS₂ (Sensors and Actuators Reports, 2024)</p>
+          </a>
+
+           <a href="DOI	https://doi.org/10.1039/D3NA01120H" target="_blank">
+            <img src="Role of Oxygen.jpg" alt="Bilayer WS2">
+            <p>Role of oxygen functional groups and attachment of Au nanoparticles on graphene oxide sheets for improved photodetection performance (Nanoscale Advances, 2024)</p>
+          </a>
+
+          <a href="https://doi.org/10.1016/j.surfin.2023.103648" target="_blank">
+            <img src="Response to VOC.jpg" alt="Bilayer WS2">
+            <p> Response to VOCs stimuli by triphenylamine derivatives functionalized zinc oxide nanorods (Surfaces and Interfaces, 2024)</p>
+          </a>
+   
+          <a href="DOI	https://doi.org/10.1039/D4TC02069C" target="_blank">
+            <img src="Facile.jpg" alt="Bilayer WS2">
+            <p>In situ synthesis of double perovskite (Journal of Materials Chemistry C, 2024)</p>
+          </a>
+
+          <a href="https://doi.org/10.1021/acsanm.1c03055" target="_blank">
+            <img src="Ultrabroadband.jpg" alt="Bilayer WS2">
+            <p> High-Performance Photodetection in Europium-Doped 2D Topological Insulator Bi2Se3 Nanosheets (ACS Applied Nano Materials, 2021)</p>
+          </a>
+
+         <a href="https://doi.org/10.1021/acsanm.3c06043" target="_blank">
+            <img src="Manipulating Trion.jpg" alt="Bilayer WS2">
+            <p>Manipulating Trion and Biexciton Emissions in Monolayer WS₂ (ACS Applied Nano Materials, 2024)</p>
+          </a>
+
+         <a href="https://link.springer.com/chapter/10.1007/978-981-97-1571-8_33" target="_blank">
+            <img src="Conference paper.jpg" alt="Bilayer WS2">
+            <p>Real time detection of S. Aureus using Monolayer WS₂ (International Workshop on the Physics of       Semiconductor and Devices, 2021)</p>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- RESEARCH -->
+    <section id="research">
+      <div class="card">
+        <h2>Research Interests</h2>
+        <ul>
+          <li>CVD growth of 2D semiconducting materials and heterostructures</li>
+          <li>Carrier dynamics and charge transport in 2D semiconductors</li>
+          <li>Spectroscopic & microscopic analysis of 2D materials</li>
+          <li>Optoelectronic applications: Photodetectors, FETs, Biosensors</li>
+        </ul>
+      </div>
+      
+      <div class="card">
+        <h2>Research Methodology</h2>
+        <p>My research employs a combination of experimental techniques and theoretical modeling to explore the fundamental properties and applications of 2D materials:</p>
+        <ul>
+          <li>Chemical Vapor Deposition (CVD) for material synthesis</li>
+          <li>Raman spectroscopy and photoluminescence for characterization</li>
+          <li>Atomic force microscopy and transmission electron microscopy</li>
+          <li>Device fabrication and electrical measurements</li>
+        </ul>
+      </div>
+    </section>
+     
+    <!-- EDUCATION & EXPERIENCE -->
+    <section id="education">
+      <div class="card">
+        <h2>Education</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h3>Ph.D. in Nanotechnology</h3>
+              <p>Indian Institute of Technology Guwahati, India</p>
+              <p>07/2019 - 05/2025</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h3>M.Sc. in Physics</h3>
+              <p>Indian Institute of Technology Kharagpur, India</p>
+              <p>06/2015 - 06/2017</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h3>B.Sc. in Physics</h3>
+              <p>University of North Bengal, India</p>
+              <p>06/2012 - 06/2015</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Experience</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-content">
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h3>Senior Research Fellow</h3>
+              <p>Indian Institute of Technology Guwahati, India</p>
+              <p>08/2024 - Present</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h3>Junior Research Fellow</h3>
+              <p>SRM Institute of Science and Technology, India</p>
+              <p>09/2017 - 06/2019</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="card">
+    <h2>List of Publications</h2>
+    
+    <!-- 2025 Publications -->
+    <div class="year-group">
+      <div class="year-header">2025</div>
+      
+      <!-- Publication 1 -->
+      <div class="pub-item">
+        <div class="pub-serial"></div>
+        <img src="MoS2 monolayer flexible.jpg" alt="Cover 1">
+        <div class="pub-text">
+          <a href="#" target="_blank">
+            Semi-metallic Bi2Se3 Contact-based Interface Engineering on Monolayer MoS₂ for High-Performance Field-Effect Transistor and Flexible Photodetector
+          </a>
+          <div class="pub-meta">
+            <div class="pub-authors"><span class="author-highlight">Abdul Kaium Mia</span>, Shipra Aswal, Subhankar Debnath, Viliam Vretenar and P. Giri</div>
+            <div class="pub-journal-year">Journal of Materials Chemistry C (Under Review)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Publication 2 -->
+      <div class="pub-item">
+        <div class="pub-serial"></div>
+        <img src="LHS.jpg" alt="Cover 2">
+        <div class="pub-text">
+          <a href="https://doi.org/10.1016/j.mtnano.2025.100638" target="_blank">
+            In-situ CVD grown WS₂-MoS₂ lateral heterostructure with alloyed Interface: Strong photoluminescence enhancement and high on-off ratio field effect transistors
+          </a>
+          <div class="pub-meta">
+            <div class="pub-authors"><span class="author-highlight">Abdul Kaium Mia</span>, Sourav Dey, Lubomir Vanco, Viliam Vretenar, PK Giri</div>
+            <div class="pub-journal-year">Materials Today Nano</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2024 Publications -->
+    <div class="year-group">
+      <div class="year-header">2024</div>
+      
+      <!-- Publication 3 -->
+      <div class="pub-item">
+        <div class="pub-serial"></div>
+        <img src="Asymmetric Contact.jpg" alt="Cover 3">
+        <div class="pub-text">
+          <a href="https://doi.org/10.1039/D3NR06118C" target="_blank">
+            Asymmetric contact-induced selective doping of CVD-grown bilayer WS₂ and its application in high-performance photodetection with an ultralow dark current
+          </a>
+          <div class="pub-meta">
+            <div class="pub-authors"><span class="author-highlight">Abdul Kaium Mia</span>, M Meyyappan, PK Giri</div>
+            <div class="pub-journal-year">Nanoscale</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Publication 4 -->
+      <div class="pub-item">
+        <div class="pub-serial"></div>
+        <img src="Sensitive detection.jpg" alt="Cover 4">
+        <div class="pub-text">
+          <a href="https://doi.org/10.1016/j.snr.2024.100214" target="_blank">
+            Highly sensitive and selective optical detection of Staphylococcus aureus using thiol functionalized monolayer tungsten disulfide grown by chemical vapor deposition
+          </a>
+          <div class="pub-meta">
+            <div class="pub-authors"><span class="author-highlight">Abdul Kaium Mia</span>, Swapnil Sinha, PK Giri</div>
+            <div class="pub-journal-year">Sensors and Actuators Reports</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Publication 5 -->
+      <div class="pub-item">
+        <div class="pub-serial"></div>
+        <img src="Manipulating Trion.jpg" alt="Cover 5">
+        <div class="pub-text">
+          <a href="https://doi.org/10.1021/acsanm.3c06043" target="_blank">
+            Manipulating Trion and Biexciton Emissions in Monolayer WS2 by Sandwiching with Ultrathin ZnO Layers for Excitonic Light Emission Applications
+          </a>
+          <div class="pub-meta">
+            <div class="pub-authors">Abhilasha Bora, Larionette PL Mawlong, <span class="author-highlight">Abdul Kaium Mia</span>, PK Giri</div>
+            <div class="pub-journal-year">ACS Applied Nano Materials</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Publication 6 -->
+      <div class="pub-item">
+        <div class="pub-serial"></div>
+        <img src="Facile.jpg" alt="Cover 6">
+        <div class="pub-text">
+          <a href="https://doi.org/10.1039/D4TC02069C" target="_blank">
+            Facile in situ synthesis of double perovskite Cs₂AgBiBr₆/WS₂ heterostructure and interfacial charge transfer mediated high-performance ultraviolet photodetection
+          </a>
+          <div class="pub-meta">
+            <div class="pub-authors">Ravinder Chahal, <span class="author-highlight">Abdul Kaium Mia</span>, Abhilasha Bora, PK Giri</div>
+            <div class="pub-journal-year">Journal of Materials Chemistry C</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Publication 7 -->
+      <div class="pub-item">
+        <div class="pub-serial"></div>
+        <img src="Role of Oxygen.jpg" alt="Cover 7">
+        <div class="pub-text">
+          <a href="https://doi.org/10.1039/D3NA01120H" target="_blank">
+            Role of oxygen functional groups and attachment of Au nanoparticles on graphene oxide sheets for improved photodetection performance
+          </a>
+          <div class="pub-meta">
+            <div class="pub-authors">Ningthoujam Somorjit Singh, <span class="author-highlight">Abdul Kaium Mia</span>, PK Giri</div>
+            <div class="pub-journal-year">Nanoscale Advances</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Publication 8 -->
+      <div class="pub-item">
+        <div class="pub-serial"></div>
+        <img src="Response to VOC.jpg" alt="Cover 8">
+        <div class="pub-text">
+          <a href="https://doi.org/10.1016/j.surfin.2023.103648" target="_blank">
+            Response to VOCs stimuli by triphenylamine derivatives functionalized zinc oxide nanorods: A promising material for food freshness monitoring
+          </a>
+          <div class="pub-meta">
+            <div class="pub-authors">Gobinath Marappan, <span class="author-highlight">Abdul Kaium Mia</span>, Kishore Puspharaj, Sivakumar Vaidyanathan, Yoshiyuki Kawazoe, Yuvaraj Sivalingam, Velappa Jayaraman Surya
+            <div class="pub-journal-year">Surfaces and Interfaces</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2023 Publications -->
+    <div class="year-group">
+      <div class="year-header">2023</div>
+      
+      <!-- Publication 9 -->
+      <div class="pub-item">
+        <div class="pub-serial"></div>
+        <img src="Fast detection.jpg" alt="Cover 9">
+        <div class="pub-text">
+          <a href="https://doi.org/10.1039/D3TB01465G" target="_blank">
+            Fast detection of Staphylococcus aureus using thiol-functionalized WS₂ quantum dots and Bi₂O₂Se nanosheets hybrid through a fluorescence recovery mechanism 
+          </a>
+          <div class="pub-meta">
+            <div class="pub-authors"><span class="author-highlight">Abdul Kaium Mia</span>, Abhilasha Bora, Md Tarik Hossain, Swapnil Sinha, PK Giri</div>
+            <div class="pub-journal-year">Journal of Materials Chemistry B</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Publication 10 -->
+      <div class="pub-item">
+        <div class="pub-serial"></div>
+        <img src="Review TOC.jpg" alt="Cover 10">
+        <div class="pub-text">
+          <a href="https://doi.org/10.3390/bios13020169" target="_blank">
+            Two-Dimensional Transition Metal Dichalcogenide Based Biosensors: From Fundamentals to Healthcare Applications
+          </a>
+          <div class="pub-meta">
+            <div class="pub-authors"><span class="author-highlight">Abdul Kaium Mia</span>, M Meyyappan, PK Giri</div>
+            <div class="pub-journal-year">Biosensors</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2021 Publications -->
+    <div class="year-group">
+      <div class="year-header">2021</div>
+      
+      <!-- Publication 11 -->
+      <div class="pub-item">
+        <div class="pub-serial"></div>
+        <img src="Ultrabroadband.jpg" alt="Cover 11">
+        <div class="pub-text">
+          <a href="https://doi.org/10.1021/acsanm.1c03055" target="_blank">
+            Ultrabroadband Absorption and High-Performance Photodetection in Europium-Doped 2D Topological Insulator Bi2Se3 Nanosheets
+          </a>
+          <div class="pub-meta">
+            <div class="pub-authors">Sumana Paul, Md Tarik Hossain, <span class="author-highlight">Abdul Kaium Mia</span>, PK Giri</div>
+            <div class="pub-journal-year">ACS Applied Nano Materials</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Conference Paper -->
+    <div class="year-group">
+      <div class="year-header">Conference Paper</div>
+      
+      <!-- Publication 12 -->
+      <div class="pub-item">
+        <div class="pub-serial"></div>
+        <img src="Conference paper.jpg" alt="Cover 12">
+        <div class="pub-text">
+          <a href="https://link.springer.com/chapter/10.1007/978-981-97-1571-8_33" target="_blank">
+            Aptamer Functionalized CVD Grown Monolayer WS2 Based FETs for Real-Time Detection of E. coli
+          </a>
+          <div class="pub-meta">
+            <div class="pub-authors"><span class="author-highlight">Abdul Kaium Mia</span>, Abhilasha Bora, PK Giri</div>
+            <div class="pub-journal-year">International Workshop on the Physics of Semiconductor and Devices</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="card">
+        <h2>Contact Information</h2>
+        <p>Email: <a href="mailto:kaiummia4@gmail.com">kaiummia4@gmail.com</a></p>
+        <p>Email: <a href="mailto:k.abdul@iitg.ac.in">k.abdul@iitg.ac.in</a></p>
+        <p>Phone: +91 97329 30051</p>
+        <p>
+          <a href="https://scholar.google.com/citations?user=LmleHyEAAAAJ" target="_blank">Google Scholar</a> |
+          <a href="https://orcid.org/0000-0002-4375-377X" target="_blank">ORCID</a> |
+          <a href="https://www.researchgate.net/profile/Abdul-Mia-2" target="_blank">ResearchGate</a>
+        </p>
+      </div>
+      
+      <div class="card">
+        <h2>Location</h2>
+        <p>Advanced Nanomaterials and Nanosensors Lab<p>
+        <p>Centre for Nanotechnology</p>
+        <p>Indian Institute of Technology Guwahati</p>
+        <p>Guwahati, Assam 781039, India</p>
+      </div>
+    </section>
+
+    <footer>© <span id="year"></span> Dr. Abdul Kaium Mia</footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    function showSection(id){
+      document.querySelectorAll("section").forEach(sec=>sec.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+    }
+  </script>
+</body>
+</html>
