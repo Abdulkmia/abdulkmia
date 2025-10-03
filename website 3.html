@@ -48,15 +48,55 @@
     section {display:none}
     section.active {display:block}
 
-    /* Hero section */
+    /* Hero section - Updated to maximize space */
     .hero {
-      background: linear-gradient(135deg,var(--accent),#0078d7);
-      color:white;padding:60px 20px;border-radius:12px;
-      display:flex;flex-wrap:wrap;align-items:center;gap:20px;margin:20px 0;
+      background: linear-gradient(135deg, #e6f0ff, #cce0ff);
+      color: #004aad;
+      padding: 60px 40px;
+      border-radius: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 40px;
+      margin: 20px 0;
+      border: 2px solid #b3d1ff;
     }
-    .hero img {width:160px;height:160px;border-radius:50%;object-fit:cover;border:3px solid #fff}
-    .hero h1 {color:#fff;font-size:32px}
-    .hero p {max-width:600px}
+    .hero img {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #004aad;
+      flex-shrink: 0;
+    }
+    .hero h1 {
+      color: #004aad;
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    .hero-content {
+      flex: 1;
+      min-width: 300px;
+      max-width: 800px;
+    }
+    .hero-paragraph {
+      margin-bottom: 20px;
+      line-height: 1.7;
+      color: #004aad;
+      font-size: 16px;
+    }
+    .highlight-text {
+      background: linear-gradient(135deg, #004aad, #0078d7);
+      color: white;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      border: 2px solid #003366;
+      box-shadow: 0 4px 15px rgba(0, 74, 173, 0.3);
+      margin: 10px 0;
+      font-style: italic;
+      display: inline-block;
+    }
 
     /* Home gallery */
     .gallery {
@@ -114,7 +154,7 @@
       content: counter(publication-number) ".";
     }
     .pub-item img {
-      width: 150px; /* Increased by 50% from original */
+      width: 150px;
       height: auto;
       object-fit: cover;
       border-radius: 8px;
@@ -167,32 +207,97 @@
     .timeline-item:nth-child(even)::after {left:-10px}
     .timeline-content {padding:20px;background-color:var(--card);border-radius:6px;box-shadow:0 2px 5px rgba(0,0,0,0.1)}
     
-    /* Responsive */
+    /* Updated Research Interests Gallery */
+    .research-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .research-item {
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .research-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .research-item img {
+      width: 100%;
+      height: auto;
+      max-height: 300px;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border: 2px solid var(--accent-light);
+      cursor: pointer;
+    }
+
+    .research-item p {
+      margin-top: 10px;
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 14px;
+    }
+
+    /* Research Methodology colored text */
+    .methodology-intro {
+      color: #2E8B57;
+      font-weight: 600;
+      margin-bottom: 15px;
+      font-style: italic;
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-left: 4px solid #2E8B57;
+      border-radius: 4px;
+    }
+
+    /* Responsive design */
     @media (max-width: 768px) {
-      header {flex-direction: column; align-items: flex-start;}
-      nav {margin-top: 15px;}
-      nav a {display: inline-block; margin: 0 10px 5px 0;}
-      .hero {flex-direction: column; text-align: center;}
-      .timeline::after {left: 31px;}
-      .timeline-item {width: 100%; padding-left: 70px; padding-right: 25px;}
-      .timeline-item:nth-child(even) {left: 0;}
-      .timeline-item::after {left: 21px;}
-      .pub-item {
-        flex-direction: column;
-        align-items: flex-start;
+      .research-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
       }
-      .pub-serial {
-        margin-bottom: 5px;
+      .hero {
+        padding: 40px 20px;
+        gap: 25px;
       }
-      .pub-item img {
-        width: 130px; /* Slightly smaller on mobile but still larger than original */
-        align-self: center;
+      .hero img {
+        width: 140px;
+        height: 140px;
+      }
+      .hero h1 {
+        font-size: 28px;
+      }
+      .hero-content {
+        min-width: auto;
+      }
+      .highlight-text {
+        padding: 10px 15px;
+        font-size: 0.95em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: 30px 15px;
+        gap: 20px;
+      }
+      .hero img {
+        width: 120px;
+        height: 120px;
+      }
+      .hero h1 {
+        font-size: 24px;
       }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
+
     <header>
       <div class="profile">
         <img src="abdul.jpg" alt="Dr. Abdul Kaium Mia">
@@ -206,6 +311,7 @@
         <a href="#research" onclick="showSection('research')">Research</a>
         <a href="#education" onclick="showSection('education')">Education</a>
         <a href="#publications" onclick="showSection('publications')">Publications</a>
+        <a href="#Conferences and Workshops" onclick="showSection('Conferences and Workshops')">Conferences and Workshops</a>
         <a href="#contact" onclick="showSection('contact')">Contact</a>
       </nav>
     </header>
@@ -214,15 +320,18 @@
     <section id="home" class="active">
       <div class="hero">
         <img src="abdul.jpg" alt="Dr. Abdul Kaium Mia">
-        <div>
+        <div class="hero-content">
           <h1>Welcome!</h1>
-          <p>I am a dedicated researcher with a focus on 2D materials for optoelectronics devices. My PhD thesis presents a comprehensive investigation into the layer-controlled growth of WS2, MoS2, and WS2-MoS2 in-situ lateral heterostructures with an alloy interface using chemical vapor deposition (CVD) techniques, alongside their applications in broadband photodetection, high-performance field-effect transistors (FETs), flexible electronics, and biosensing. The work addresses critical challenges of 2D TMDs in optoelectronics by optimizing growth parameters and exploring a deep understanding of the carrier dynamics and charge transport.
-Overall, the thesis advances the understanding of 2D material growth and their integration into high-performance optoelectronic devices.</p>
+          <p class="hero-paragraph">I am a researcher with a focus on 2D materials (TMDs) for optoelectronics devices. I have completed my PhD from the Centre for Nanotechnology, IIT Guwahati, and am looking for postdoc positions.</p>
+          
+          <p class="hero-paragraph">During my PhD I have studied the layer-controlled CVD growth of WS₂, MoS₂, and WS₂-MoS₂ in-situ lateral heterostructures with an alloy interface using chemical vapor deposition (CVD) techniques, alongside their applications in broadband photodetection, high-performance field-effect transistors (FETs), flexible electronics, and biosensing.</p>
+          
+          <p class="hero-paragraph">My notable contribution during my PhD includes single-step in-situ growth of WS₂-MoS₂ heterostructure for high performance optoelectronics and asymmetric contact induced selective doping in bilayer WS₂ for enhanced photodetection, which has been listed in <b>Spotlight on Materials and Nano Research from Indian institutes and Nanoscale Most Popular 2024 Articles<b>.</p>
         </div>
       </div>
 
       <div class="card">
-        <h2>Research Highlights</h2>
+        <h2>Recent Publications</h2>
         <p><b>Click any image below to view the corresponding manuscript<b>:</p>
         <div class="gallery">
           <a href="Under Review" target="_blank">
@@ -241,43 +350,18 @@ Overall, the thesis advances the understanding of 2D material growth and their i
           </a>
 
           <a href="https://doi.org/10.1039/D3NR06118C" target="_blank">
-            <img src="Asymmetric Contact.jpg" alt="Bilayer WS2">
+            <img src="Asymmetric Contact.jpg" alt="Bilayer WS₂">
             <p>Asymmetric contact-based bilayer WS₂ Photodetector (Nanoscale, 2024)</p>
           </a>
           
            <a href="https://doi.org/10.1016/j.snr.2024.100214" target="_blank">
-            <img src="Sensitive detection.jpg" alt="Bilayer WS2">
+            <img src="Sensitive detection.jpg" alt="Bilayer WS₂">
             <p> S. Aureus detection using Aptamer functionalized monolayer WS₂ (Sensors and Actuators Reports, 2024)</p>
           </a>
-
-           <a href="DOI	https://doi.org/10.1039/D3NA01120H" target="_blank">
-            <img src="Role of Oxygen.jpg" alt="Bilayer WS2">
-            <p>Role of oxygen functional groups and attachment of Au nanoparticles on graphene oxide sheets for improved photodetection performance (Nanoscale Advances, 2024)</p>
-          </a>
-
-          <a href="https://doi.org/10.1016/j.surfin.2023.103648" target="_blank">
-            <img src="Response to VOC.jpg" alt="Bilayer WS2">
-            <p> Response to VOCs stimuli by triphenylamine derivatives functionalized zinc oxide nanorods (Surfaces and Interfaces, 2024)</p>
-          </a>
    
-          <a href="DOI	https://doi.org/10.1039/D4TC02069C" target="_blank">
-            <img src="Facile.jpg" alt="Bilayer WS2">
-            <p>In situ synthesis of double perovskite (Journal of Materials Chemistry C, 2024)</p>
-          </a>
-
-          <a href="https://doi.org/10.1021/acsanm.1c03055" target="_blank">
-            <img src="Ultrabroadband.jpg" alt="Bilayer WS2">
-            <p> High-Performance Photodetection in Europium-Doped 2D Topological Insulator Bi2Se3 Nanosheets (ACS Applied Nano Materials, 2021)</p>
-          </a>
-
          <a href="https://doi.org/10.1021/acsanm.3c06043" target="_blank">
-            <img src="Manipulating Trion.jpg" alt="Bilayer WS2">
+            <img src="Manipulating Trion.jpg" alt="Bilayer WS₂">
             <p>Manipulating Trion and Biexciton Emissions in Monolayer WS₂ (ACS Applied Nano Materials, 2024)</p>
-          </a>
-
-         <a href="https://link.springer.com/chapter/10.1007/978-981-97-1571-8_33" target="_blank">
-            <img src="Conference paper.jpg" alt="Bilayer WS2">
-            <p>Real time detection of S. Aureus using Monolayer WS₂ (International Workshop on the Physics of       Semiconductor and Devices, 2021)</p>
           </a>
 
         </div>
@@ -296,9 +380,65 @@ Overall, the thesis advances the understanding of 2D material growth and their i
         </ul>
       </div>
       
+      <!-- Modified Research Gallery Section -->
+      <div class="card">
+        <h2>Research Areas</h2>
+        <div class="research-gallery">
+          <div class="research-item">
+            <a href="Uniform growth.jpg" target="_blank">
+              <img src="Uniform growth.jpg" alt="CVD growth setup for 2D materials">
+            </a>
+            <p>CVD Growth of 2D Materials</p>
+          </div>
+          <div class="research-item">
+            <a href="FET device.jpg" target="_blank">
+              <img src="FET device.jpg" alt="Field-effect transistor">
+            </a>
+            <p>FET Devices</p>
+          </div>
+          <div class="research-item">
+            <a href="Photodetector.jpg" target="_blank">
+              <img src="Photodetector.jpg" alt="Photodetector device">
+            </a>
+            <p>Photodetector Applications</p>
+          </div>
+          <div class="research-item">
+            <a href="Auger.jpg" target="_blank">
+              <img src="Auger.jpg" alt="2D material heterostructures">
+            </a>
+            <p>2D Heterostructures</p>
+          </div>
+          <div class="research-item">
+            <a href="Raman.jpg" target="_blank">
+              <img src="Raman.jpg" alt="Spectroscopic analysis">
+            </a>
+            <p>Spectroscopic Analysis</p>
+          </div>      
+          <div class="research-item">
+            <a href="Flexiable.jpg" alt="Flexiable Devices">
+              <img src="Flexiable.jpg" alt="Flexible Devices">
+            </a>
+            <p>Flexible Devices</p>
+          </div>
+          <div class="research-item">
+            <a href="EBL.jpg" target="_blank">
+              <img src="EBL.jpg" alt="Advanced Lithograpgy">
+            </a>
+            <p>Advanced Lithograpgy</p>
+          </div>
+          <div class="research-item">
+            <a href="WS2ML SNAR.jpg" target="_blank">
+              <img src="WS2ML SNAR.jpg" alt="Biosensing applications">
+            </a>
+            <p>Biosensing Technology</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Modified Research Methodology Section -->
       <div class="card">
         <h2>Research Methodology</h2>
-        <p>My research employs a combination of experimental techniques and theoretical modeling to explore the fundamental properties and applications of 2D materials:</p>
+        <p class="methodology-intro">My research employs a series of experimental techniques to explore the fundamental properties and applications of CVD-grown 2D materials:</p>
         <ul>
           <li>Chemical Vapor Deposition (CVD) for material synthesis</li>
           <li>Raman spectroscopy and photoluminescence for characterization</li>
@@ -308,6 +448,7 @@ Overall, the thesis advances the understanding of 2D material growth and their i
       </div>
     </section>
      
+    <!-- Rest of your code remains exactly the same -->
     <!-- EDUCATION & EXPERIENCE -->
     <section id="education">
       <div class="card">
@@ -361,216 +502,254 @@ Overall, the thesis advances the understanding of 2D material growth and their i
       </div>
     </section>
 
-    <!-- PUBLICATIONS -->
-<section id="publications">
+<!-- CONFERENCES & WORKSHOPS -->
+<section id="conferences">
   <div class="card">
-    <h2>List of Publications</h2>
-    
-    <!-- 2025 Publications -->
-    <div class="year-group">
-      <div class="year-header">2025</div>
-      
-      <!-- Publication 1 -->
-      <div class="pub-item">
-        <div class="pub-serial"></div>
-        <img src="MoS2 monolayer flexible.jpg" alt="Cover 1">
-        <div class="pub-text">
-          <a href="#" target="_blank">
-            Semi-metallic Bi2Se3 Contact-based Interface Engineering on Monolayer MoS₂ for High-Performance Field-Effect Transistor and Flexible Photodetector
-          </a>
-          <div class="pub-meta">
-            <div class="pub-authors"><span class="author-highlight">Abdul Kaium Mia</span>, Shipra Aswal, Subhankar Debnath, Viliam Vretenar and P. Giri</div>
-            <div class="pub-journal-year">Journal of Materials Chemistry C (Under Review)</div>
+    <h2>Conferences & Workshops</h2>
+    <ul>
+      <li>Recent Progress in Graphene and 2D Materials Research (RPGR-2023), Bangalore, India.</li>
+      <li>5th International Conference on Nanoscience and Nanotechnology (ICONN-2019), SRM IST, India.</li>
+      <li>8th International Conference on Advanced Nanomaterials and Nanotechnology (ICANN), IIT Guwahati, India.</li>
+      <li>Frontiers in Nano-Sciences 2024 (FINS 2024). IIT Guwahati, India.</li>
+      <li>International Symposium on Semiconductor Materials and Devices (ISSMD-2022), KIT, India.</li>
+      <li>International Conference on Nano-Structured Materials & Devices (ICNSMD-2018), University of Delhi, India.</li>
+      <li>Advances in Catalysis for Energy and Environment (CACEE-2018), TIFR, India.</li>
+      <li>Hands-on Training Workshop on Nanofabrication Technologies, IISc Bangalore, India.</li>
+      <li>XXI International Workshop on Physics of Semiconductor Devices (IWPSD 2021), IIT Delhi, India.</li>
+      <li>SPARC Workshop on 2D Materials, 2024.</li>
+    </ul>
+  </div>
+</section>
+
+    <!-- PUBLICATIONS -->
+    <section id="publications">
+      <div class="card">
+        <h2>List of Publications</h2>
+        
+        <!-- 2025 Publications -->
+        <div class="year-group">
+          <div class="year-header">2025</div>
+          
+          <!-- Publication 1 -->
+          <div class="pub-item">
+            <div class="pub-serial"></div>
+            <img src="MoS2 monolayer flexible.jpg" alt="Cover 1">
+            <div class="pub-text">
+              <a href="#" target="_blank">
+                Semi-metallic Bi₂Se3 Contact-based Interface Engineering on Monolayer MoS₂ for High-Performance Field-Effect Transistor and Flexible Photodetector
+              </a>
+              <div class="pub-meta">
+                <div class="pub-authors"><span class="author-highlight">Abdul Kaium Mia</span>, Shipra Aswal, Subhankar Debnath, Viliam Vretenar and P. Giri</div>
+                <div class="pub-journal-year">Journal of Materials Chemistry C (Under Review)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Publication 2 -->
+          <div class="pub-item">
+            <div class="pub-serial"></div>
+            <img src="LHS.jpg" alt="Cover 2">
+            <div class="pub-text">
+              <a href="https://doi.org/10.1016/j.mtnano.2025.100638" target="_blank">
+                In-situ CVD grown WS₂-MoS₂ lateral heterostructure with alloyed Interface: Strong photoluminescence enhancement and high on-off ratio field effect transistors
+              </a>
+              <div class="pub-meta">
+                <div class="pub-authors"><span class="author-highlight">Abdul Kaium Mia</span>, Sourav Dey, Lubomir Vanco, Viliam Vretenar, PK Giri</div>
+                <div class="pub-journal-year">Materials Today Nano</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2024 Publications -->
+        <div class="year-group">
+          <div class="year-header">2024</div>
+          
+          <!-- Publication 3 -->
+          <div class="pub-item">
+            <div class="pub-serial"></div>
+            <img src="Asymmetric Contact.jpg" alt="Cover 3">
+            <div class="pub-text">
+              <a href="https://doi.org/10.1039/D3NR06118C" target="_blank">
+                Asymmetric contact-induced selective doping of CVD-grown bilayer WS₂ and its application in high-performance photodetection with an ultralow dark current
+              </a>
+              <div class="pub-meta">
+                <div class="pub-authors"><span class="author-highlight">Abdul Kaium Mia</span>, M Meyyappan, PK Giri</div>
+                <div class="pub-journal-year">Nanoscale</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Publication 4 -->
+          <div class="pub-item">
+            <div class="pub-serial"></div>
+            <img src="Sensitive detection.jpg" alt="Cover 4">
+            <div class="pub-text">
+              <a href="https://doi.org/10.1016/j.snr.2024.100214" target="_blank">
+                Highly sensitive and selective optical detection of Staphylococcus aureus using thiol functionalized monolayer tungsten disulfide grown by chemical vapor deposition
+              </a>
+              <div class="pub-meta">
+                <div class="pub-authors"><span class="author-highlight">Abdul Kaium Mia</span>, Swapnil Sinha, PK Giri</div>
+                <div class="pub-journal-year">Sensors and Actuators Reports</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Publication 5 -->
+          <div class="pub-item">
+            <div class="pub-serial"></div>
+            <img src="Manipulating Trion.jpg" alt="Cover 5">
+            <div class="pub-text">
+              <a href="https://doi.org/10.1021/acsanm.3c06043" target="_blank">
+                Manipulating Trion and Biexciton Emissions in Monolayer WS₂ by Sandwiching with Ultrathin ZnO Layers for Excitonic Light Emission Applications
+              </a>
+              <div class="pub-meta">
+                <div class="pub-authors">Abhilasha Bora, Larionette PL Mawlong, <span class="author-highlight">Abdul Kaium Mia</span>, PK Giri</div>
+                <div class="pub-journal-year">ACS Applied Nano Materials</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Publication 6 -->
+          <div class="pub-item">
+            <div class="pub-serial"></div>
+            <img src="Facile.jpg" alt="Cover 6">
+            <div class="pub-text">
+              <a href="https://doi.org/10.1039/D4TC02069C" target="_blank">
+                Facile in situ synthesis of double perovskite Cs₂AgBiBr₆/WS₂ heterostructure and interfacial charge transfer mediated high-performance ultraviolet photodetection
+              </a>
+              <div class="pub-meta">
+                <div class="pub-authors">Ravinder Chahal, <span class="author-highlight">Abdul Kaium Mia</span>, Abhilasha Bora, PK Giri</div>
+                <div class="pub-journal-year">Journal of Materials Chemistry C</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Publication 7 -->
+          <div class="pub-item">
+            <div class="pub-serial"></div>
+            <img src="Role of Oxygen.jpg" alt="Cover 7">
+            <div class="pub-text">
+              <a href="https://doi.org/10.1039/D3NA01120H" target="_blank">
+                Role of oxygen functional groups and attachment of Au nanoparticles on graphene oxide sheets for improved photodetection performance
+              </a>
+              <div class="pub-meta">
+                <div class="pub-authors">Ningthoujam Somorjit Singh, <span class="author-highlight">Abdul Kaium Mia</span>, PK Giri</div>
+                <div class="pub-journal-year">Nanoscale Advances</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Publication 8 -->
+          <div class="pub-item">
+            <div class="pub-serial"></div>
+            <img src="Response to VOC.jpg" alt="Cover 8">
+            <div class="pub-text">
+              <a href="https://doi.org/10.1016/j.surfin.2023.103648" target="_blank">
+                Response to VOCs stimuli by triphenylamine derivatives functionalized zinc oxide nanorods: A promising material for food freshness monitoring
+              </a>
+              <div class="pub-meta">
+                <div class="pub-authors">Gobinath Marappan, <span class="author-highlight">Abdul Kaium Mia</span>, Kishore Puspharaj, Sivakumar Vaidyanathan, Yoshiyuki Kawazoe, Yuvaraj Sivalingam, Velappa Jayaraman Surya
+                <div class="pub-journal-year">Surfaces and Interfaces</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2023 Publications -->
+        <div class="year-group">
+          <div class="year-header">2023</div>
+          
+          <!-- Publication 9 -->
+          <div class="pub-item">
+            <div class="pub-serial"></div>
+            <img src="Fast detection.jpg" alt="Cover 9">
+            <div class="pub-text">
+              <a href="https://doi.org/10.1039/D3TB01465G" target="_blank">
+                Fast detection of Staphylococcus aureus using thiol-functionalized WS₂ quantum dots and Bi₂O₂Se nanosheets hybrid through a fluorescence recovery mechanism 
+              </a>
+              <div class="pub-meta">
+                <div class="pub-authors"><span class="author-highlight">Abdul Kaium Mia</span>, Abhilasha Bora, Md Tarik Hossain, Swapnil Sinha, PK Giri</div>
+                <div class="pub-journal-year">Journal of Materials Chemistry B</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Publication 10 -->
+          <div class="pub-item">
+            <div class="pub-serial"></div>
+            <img src="Review TOC.jpg" alt="Cover 10">
+            <div class="pub-text">
+              <a href="https://doi.org/10.3390/bios13020169" target="_blank">
+                Two-Dimensional Transition Metal Dichalcogenide Based Biosensors: From Fundamentals to Healthcare Applications
+              </a>
+              <div class="pub-meta">
+                <div class="pub-authors"><span class="author-highlight">Abdul Kaium Mia</span>, M Meyyappan, PK Giri</div>
+                <div class="pub-journal-year">Biosensors</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2021 Publications -->
+        <div class="year-group">
+          <div class="year-header">2021</div>
+          
+          <!-- Publication 11 -->
+          <div class="pub-item">
+            <div class="pub-serial"></div>
+            <img src="Ultrabroadband.jpg" alt="Cover 11">
+            <div class="pub-text">
+              <a href="https://doi.org/10.1021/acsanm.1c03055" target="_blank">
+                Ultrabroadband Absorption and High-Performance Photodetection in Europium-Doped 2D Topological Insulator Bi₂Se3 Nanosheets
+              </a>
+              <div class="pub-meta">
+                <div class="pub-authors">Sumana Paul, Md Tarik Hossain, <span class="author-highlight">Abdul Kaium Mia</span>, PK Giri</div>
+                <div class="pub-journal-year">ACS Applied Nano Materials</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conference Paper -->
+        <div class="year-group">
+          <div class="year-header">Conference Paper</div>
+          
+          <!-- Publication 12 -->
+          <div class="pub-item">
+            <div class="pub-serial"></div>
+            <img src="Conference paper.jpg" alt="Cover 12">
+            <div class="pub-text">
+              <a href="https://link.springer.com/chapter/10.1007/978-981-97-1571-8_33" target="_blank">
+                Aptamer Functionalized CVD Grown Monolayer WS₂ Based FETs for Real-Time Detection of E. coli
+              </a>
+              <div class="pub-meta">
+                <div class="pub-authors"><span class="author-highlight">Abdul Kaium Mia</span>, Abhilasha Bora, PK Giri</div>
+                <div class="pub-journal-year">International Workshop on the Physics of Semiconductor and Devices</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Publication 2 -->
-      <div class="pub-item">
-        <div class="pub-serial"></div>
-        <img src="LHS.jpg" alt="Cover 2">
-        <div class="pub-text">
-          <a href="https://doi.org/10.1016/j.mtnano.2025.100638" target="_blank">
-            In-situ CVD grown WS₂-MoS₂ lateral heterostructure with alloyed Interface: Strong photoluminescence enhancement and high on-off ratio field effect transistors
-          </a>
-          <div class="pub-meta">
-            <div class="pub-authors"><span class="author-highlight">Abdul Kaium Mia</span>, Sourav Dey, Lubomir Vanco, Viliam Vretenar, PK Giri</div>
-            <div class="pub-journal-year">Materials Today Nano</div>
-          </div>
-        </div>
+    <!-- CONFERENCES & WORKSHOPS -->
+    <section id="Conferences and Workshops">
+      <div class="card">
+        <h2>Conferences & Workshops</h2>
+        <ul>
+          <li>Recent Progress in Graphene and 2D Materials Research (RPGR-2023), Bangalore, India.</li>
+          <li>5th International Conference on Nanoscience and Nanotechnology (ICONN-2019), SRM IST, India.</li>
+          <li>8th International Conference on Advanced Nanomaterials and Nanotechnology (ICANN), IIT Guwahati, India.</li>
+          <li>Frontiers in Nano-Sciences 2024 (FINS 2024). IIT Guwahati, India.</li>
+          <li>International Symposium on Semiconductor Materials and Devices (ISSMD-2022), KIT, India.</li>
+          <li>International Conference on Nano-Structured Materials & Devices (ICNSMD-2018), University of Delhi, India.</li>
+          <li>Advances in Catalysis for Energy and Environment (CACEE-2018), TIFR, India.</li>
+          <li>Hands-on Training Workshop on Nanofabrication Technologies, IISc Bangalore, India.</li>
+          <li>XXI International Workshop on Physics of Semiconductor Devices (IWPSD 2021), IIT Delhi, India.</li>
+          <li>SPARC Workshop on 2D Materials, 2024.</li>
+        </ul>
       </div>
-    </div>
-
-    <!-- 2024 Publications -->
-    <div class="year-group">
-      <div class="year-header">2024</div>
-      
-      <!-- Publication 3 -->
-      <div class="pub-item">
-        <div class="pub-serial"></div>
-        <img src="Asymmetric Contact.jpg" alt="Cover 3">
-        <div class="pub-text">
-          <a href="https://doi.org/10.1039/D3NR06118C" target="_blank">
-            Asymmetric contact-induced selective doping of CVD-grown bilayer WS₂ and its application in high-performance photodetection with an ultralow dark current
-          </a>
-          <div class="pub-meta">
-            <div class="pub-authors"><span class="author-highlight">Abdul Kaium Mia</span>, M Meyyappan, PK Giri</div>
-            <div class="pub-journal-year">Nanoscale</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Publication 4 -->
-      <div class="pub-item">
-        <div class="pub-serial"></div>
-        <img src="Sensitive detection.jpg" alt="Cover 4">
-        <div class="pub-text">
-          <a href="https://doi.org/10.1016/j.snr.2024.100214" target="_blank">
-            Highly sensitive and selective optical detection of Staphylococcus aureus using thiol functionalized monolayer tungsten disulfide grown by chemical vapor deposition
-          </a>
-          <div class="pub-meta">
-            <div class="pub-authors"><span class="author-highlight">Abdul Kaium Mia</span>, Swapnil Sinha, PK Giri</div>
-            <div class="pub-journal-year">Sensors and Actuators Reports</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Publication 5 -->
-      <div class="pub-item">
-        <div class="pub-serial"></div>
-        <img src="Manipulating Trion.jpg" alt="Cover 5">
-        <div class="pub-text">
-          <a href="https://doi.org/10.1021/acsanm.3c06043" target="_blank">
-            Manipulating Trion and Biexciton Emissions in Monolayer WS2 by Sandwiching with Ultrathin ZnO Layers for Excitonic Light Emission Applications
-          </a>
-          <div class="pub-meta">
-            <div class="pub-authors">Abhilasha Bora, Larionette PL Mawlong, <span class="author-highlight">Abdul Kaium Mia</span>, PK Giri</div>
-            <div class="pub-journal-year">ACS Applied Nano Materials</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Publication 6 -->
-      <div class="pub-item">
-        <div class="pub-serial"></div>
-        <img src="Facile.jpg" alt="Cover 6">
-        <div class="pub-text">
-          <a href="https://doi.org/10.1039/D4TC02069C" target="_blank">
-            Facile in situ synthesis of double perovskite Cs₂AgBiBr₆/WS₂ heterostructure and interfacial charge transfer mediated high-performance ultraviolet photodetection
-          </a>
-          <div class="pub-meta">
-            <div class="pub-authors">Ravinder Chahal, <span class="author-highlight">Abdul Kaium Mia</span>, Abhilasha Bora, PK Giri</div>
-            <div class="pub-journal-year">Journal of Materials Chemistry C</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Publication 7 -->
-      <div class="pub-item">
-        <div class="pub-serial"></div>
-        <img src="Role of Oxygen.jpg" alt="Cover 7">
-        <div class="pub-text">
-          <a href="https://doi.org/10.1039/D3NA01120H" target="_blank">
-            Role of oxygen functional groups and attachment of Au nanoparticles on graphene oxide sheets for improved photodetection performance
-          </a>
-          <div class="pub-meta">
-            <div class="pub-authors">Ningthoujam Somorjit Singh, <span class="author-highlight">Abdul Kaium Mia</span>, PK Giri</div>
-            <div class="pub-journal-year">Nanoscale Advances</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Publication 8 -->
-      <div class="pub-item">
-        <div class="pub-serial"></div>
-        <img src="Response to VOC.jpg" alt="Cover 8">
-        <div class="pub-text">
-          <a href="https://doi.org/10.1016/j.surfin.2023.103648" target="_blank">
-            Response to VOCs stimuli by triphenylamine derivatives functionalized zinc oxide nanorods: A promising material for food freshness monitoring
-          </a>
-          <div class="pub-meta">
-            <div class="pub-authors">Gobinath Marappan, <span class="author-highlight">Abdul Kaium Mia</span>, Kishore Puspharaj, Sivakumar Vaidyanathan, Yoshiyuki Kawazoe, Yuvaraj Sivalingam, Velappa Jayaraman Surya
-            <div class="pub-journal-year">Surfaces and Interfaces</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2023 Publications -->
-    <div class="year-group">
-      <div class="year-header">2023</div>
-      
-      <!-- Publication 9 -->
-      <div class="pub-item">
-        <div class="pub-serial"></div>
-        <img src="Fast detection.jpg" alt="Cover 9">
-        <div class="pub-text">
-          <a href="https://doi.org/10.1039/D3TB01465G" target="_blank">
-            Fast detection of Staphylococcus aureus using thiol-functionalized WS₂ quantum dots and Bi₂O₂Se nanosheets hybrid through a fluorescence recovery mechanism 
-          </a>
-          <div class="pub-meta">
-            <div class="pub-authors"><span class="author-highlight">Abdul Kaium Mia</span>, Abhilasha Bora, Md Tarik Hossain, Swapnil Sinha, PK Giri</div>
-            <div class="pub-journal-year">Journal of Materials Chemistry B</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Publication 10 -->
-      <div class="pub-item">
-        <div class="pub-serial"></div>
-        <img src="Review TOC.jpg" alt="Cover 10">
-        <div class="pub-text">
-          <a href="https://doi.org/10.3390/bios13020169" target="_blank">
-            Two-Dimensional Transition Metal Dichalcogenide Based Biosensors: From Fundamentals to Healthcare Applications
-          </a>
-          <div class="pub-meta">
-            <div class="pub-authors"><span class="author-highlight">Abdul Kaium Mia</span>, M Meyyappan, PK Giri</div>
-            <div class="pub-journal-year">Biosensors</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2021 Publications -->
-    <div class="year-group">
-      <div class="year-header">2021</div>
-      
-      <!-- Publication 11 -->
-      <div class="pub-item">
-        <div class="pub-serial"></div>
-        <img src="Ultrabroadband.jpg" alt="Cover 11">
-        <div class="pub-text">
-          <a href="https://doi.org/10.1021/acsanm.1c03055" target="_blank">
-            Ultrabroadband Absorption and High-Performance Photodetection in Europium-Doped 2D Topological Insulator Bi2Se3 Nanosheets
-          </a>
-          <div class="pub-meta">
-            <div class="pub-authors">Sumana Paul, Md Tarik Hossain, <span class="author-highlight">Abdul Kaium Mia</span>, PK Giri</div>
-            <div class="pub-journal-year">ACS Applied Nano Materials</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Conference Paper -->
-    <div class="year-group">
-      <div class="year-header">Conference Paper</div>
-      
-      <!-- Publication 12 -->
-      <div class="pub-item">
-        <div class="pub-serial"></div>
-        <img src="Conference paper.jpg" alt="Cover 12">
-        <div class="pub-text">
-          <a href="https://link.springer.com/chapter/10.1007/978-981-97-1571-8_33" target="_blank">
-            Aptamer Functionalized CVD Grown Monolayer WS2 Based FETs for Real-Time Detection of E. coli
-          </a>
-          <div class="pub-meta">
-            <div class="pub-authors"><span class="author-highlight">Abdul Kaium Mia</span>, Abhilasha Bora, PK Giri</div>
-            <div class="pub-journal-year">International Workshop on the Physics of Semiconductor and Devices</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     </section>
 
     <!-- CONTACT -->
